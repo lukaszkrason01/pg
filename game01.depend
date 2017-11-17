@@ -1,0 +1,24 @@
+# depslib dependency file v1.0
+1510919702 source:d:\code\test03\game01\game.cpp
+	"SDL/SDL.h"
+	"SDL/SDL_image.h"
+	"SDL/SDL_ttf.h"
+	"Timer.hpp"
+	<string>
+	<cstdlib>
+	<sstream>
+
+1509917799 d:\code\test03\game01\timer.h
+
+1509918111 source:d:\code\test03\game01\timer.cpp
+	"Timer.h"
+	"SDL/SDL.h"
+
+1509917799 d:\code\test03\game01\timer.hpp
+
+1509923488 d:\code\test03\game01\hero.hpp
+	"SDL/SDL.h"
+
+1509923422 source:d:\code\test03\game01\hero.cpp
+	"Hero.hpp"
+
