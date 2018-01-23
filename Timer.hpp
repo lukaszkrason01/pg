@@ -1,5 +1,5 @@
-#ifndef TIMER_H_INCLUDED
-#define TIMER_H_INCLUDED
+#ifndef TIMER_HPP_INCLUDED
+#define TIMER_HPP_INCLUDED
 class Timer
 {
     private:
