@@ -31,8 +31,18 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="Background.cpp" />
+		<Unit filename="Background.hpp" />
+		<Unit filename="Floor.cpp" />
+		<Unit filename="Floor.hpp" />
 		<Unit filename="Hero.cpp" />
 		<Unit filename="Hero.hpp" />
+		<Unit filename="Hud.cpp" />
+		<Unit filename="Hud.hpp" />
+		<Unit filename="Pause.cpp" />
+		<Unit filename="Pause.hpp" />
+		<Unit filename="Texture.cpp" />
+		<Unit filename="Texture.hpp" />
 		<Unit filename="Timer.cpp" />
 		<Unit filename="Timer.hpp" />
 		<Unit filename="game.cpp" />
