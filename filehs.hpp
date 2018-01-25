@@ -7,12 +7,23 @@ class Filehs
 {
     public:
     static const int MAX_SIZE = 5;
-
     int size;
-    std::string gamer[MAX_SIZE];
-    int score[MAX_SIZE];
 
     Filehs();
+    ~Filehs();
+
+    void sort();
+    int getWorst();
+    const char* getGamer(int i);
+    const char* getScore(int i);
+    void save();
+
+    private:
+
+    std::string *gamer;
+    int *score;
+
+    int getmax(int x);
 };
 
 #endif // FILEHS_HPP_INCLUDED

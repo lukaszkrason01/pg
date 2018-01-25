@@ -95,37 +95,6 @@ bool init()
     return true;
 }
 
-bool load_higsh_scores()
-{
-    std::ifstream load( "data//fame.txt" );
-
-    if(load != NULL)
-    {
-        std::string temp;
-        for ( int i = 0 ; i < 5 ; ++i)
-        {
-            if( load.eof()  )
-            {
-                break;
-            }
-            else
-            {
-                getline ( load , temp );
-                fame[i] << temp;
-            }
-        }
-
-        if ( load.fail() ) return false;
-        load.close();
-    }
-    return true;
-}
-
-bool save_highscore()
-{
-
-    return true;
-}
 
 bool load_files()
 {
@@ -302,6 +271,7 @@ void behavior()
                 break;
             case MainMenu::HIGHSCORE :
                 mainmenu->refresh();
+                highscores->update();
                 state = HIGH_SCORES;
                 break;
             case MainMenu::QUIT:
@@ -339,7 +309,6 @@ int main( int argc, char* args[] )
 {
     if(!init())         exit(EXIT_FAILURE);
     if(!load_files())   exit(EXIT_FAILURE);
-    if(!load_higsh_scores()) exit(EXIT_FAILURE);
 
     Timer fps;
 
@@ -350,7 +319,7 @@ int main( int argc, char* args[] )
     mainmenu->sethighscore(highscore_main_menu);
     mainmenu->setquit(quit_button_pause_menu);
 
-    highscores = new HighScores(back,highscore_menu,screen,fame,messages_font);
+    highscores = new HighScores(back,highscore_menu,screen,messages_font);
 
     game= new Game(herosprite,floortexture,bg,messages_font,screen);
 
@@ -363,7 +332,6 @@ int main( int argc, char* args[] )
     state = MAIN_MENU;
 
     game_time = new Timer();
-    game_time -> start();
 
     Hero h= *game->hero;
 
@@ -384,7 +352,7 @@ int main( int argc, char* args[] )
         ////////testing
 
         std::stringstream caption;
-        caption << "test = " << f.score[0];
+        caption << "test = " << f.getGamer(2);
         SDL_WM_SetCaption( caption.str().c_str(), NULL );
     }
 
@@ -392,6 +360,7 @@ int main( int argc, char* args[] )
     delete pause;
     delete mainmenu;
     delete game_time;
+    delete highscores;
     clean_up();
 
     return 0;

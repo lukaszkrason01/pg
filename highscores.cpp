@@ -2,7 +2,7 @@
 
 #include <string>
 
-HighScores::HighScores(SDL_Surface *but, SDL_Surface *sur,SDL_Surface *scr, std::stringstream *s,TTF_Font *f):Texture(sur,scr)
+HighScores::HighScores(SDL_Surface *but, SDL_Surface *sur,SDL_Surface *scr,TTF_Font *f):Texture(sur,scr)
 {
     Font = f;
     Color.b=255;
@@ -10,19 +10,25 @@ HighScores::HighScores(SDL_Surface *but, SDL_Surface *sur,SDL_Surface *scr, std:
     Color.r=255;
 
     back = new Button(143,400,330,60,but,scr);
-    for (int i = 0 ; i < 5 ; ++i)
-    {
-     //   player[i] = new Messege(screen);
-       // score [i] = new Messege(screen);
-    }
-
     back->set_clips();
 
-    for(int j=0;j<5;j++)
+    scores= new Filehs();
+    for (int i = 0 ; i < scores->size ; ++i)
     {
-    //    player[j] -> make_messege(s[j*2].str().c_str(),Font, Color);
-    //    score[j] -> make_messege(s[j*2+1].str().c_str(),Font,Color);
+        player[i] = new Messege(screen);
+        score [i] = new Messege(screen);
     }
+}
+
+HighScores::~HighScores()
+{
+    for (int i = 0 ; i < scores->size ; ++i)
+    {
+        delete player[i];
+        delete score[i];
+    }
+    delete scores;
+    delete back;
 }
 
 int HighScores::action()
@@ -35,18 +41,37 @@ void HighScores::refresh()
 {
     back->refresh();
 }
+
+void HighScores::update()
+{
+    for(int i=0;i<scores->size;i++)
+    {
+        player[i] -> make_messege(scores->getGamer(i),Font, Color);
+        score[i] -> make_messege(scores->getScore(i),Font,Color);
+    }
+}
+
+void HighScores::clean_up()
+{
+    for(int i=0;i<scores->size;i++)
+    {
+        player[i] -> clean_up();
+        score[i] -> clean_up();
+    }
+}
+
 void HighScores::show()
 {
+
     SDL_Rect offset;
     offset.x=0;
     offset.y=0;
     apply_surface(&offset);
-    for (int i = 0 ; i < 5 ; ++i)
+    for(int i=0;i<scores->size;i++)
     {
-    //    player[i]->show(10,50*i+100);
-     //   score [i]->show(500,50*i+100);
+        player[i] -> show(50,100+50*i);
+        score[i] -> show(500,100+50*i);
     }
-
     back->show();
 }
 
