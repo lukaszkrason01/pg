@@ -31,11 +31,31 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="Background.cpp" />
+		<Unit filename="Background.hpp" />
+		<Unit filename="Button.cpp" />
+		<Unit filename="Button.hpp" />
+		<Unit filename="Floor.cpp" />
+		<Unit filename="Floor.hpp" />
+		<Unit filename="HUDMessege.cpp" />
+		<Unit filename="HUDMessege.hpp" />
 		<Unit filename="Hero.cpp" />
 		<Unit filename="Hero.hpp" />
+		<Unit filename="Pause.cpp" />
+		<Unit filename="Pause.hpp" />
+		<Unit filename="Sizes.h" />
+		<Unit filename="Texture.cpp" />
+		<Unit filename="Texture.hpp" />
 		<Unit filename="Timer.cpp" />
 		<Unit filename="Timer.hpp" />
 		<Unit filename="game.cpp" />
+		<Unit filename="game.hpp" />
+		<Unit filename="highscores.cpp" />
+		<Unit filename="highscores.hpp" />
+		<Unit filename="main.cpp" />
+		<Unit filename="mainmenu.cpp" />
+		<Unit filename="mainmenu.hpp" />
+		<Unit filename="states.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />
