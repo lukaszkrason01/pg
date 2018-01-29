@@ -1,6 +1,8 @@
 #ifndef PAUSE_HPP_INCLUDED
 #define PAUSE_HPP_INCLUDED
 
+#include "SDL/SDL_mixer.h"
+
 #include "Texture.hpp"
 #include "Button.hpp"
 
@@ -8,6 +10,8 @@ class PauseMenu :
     public Texture
 {
     private:
+        Mix_Chunk *sound;
+        Mix_Chunk *sound2;
         Button *back;
         Button *restart;
         Button *mainmenu;
@@ -20,6 +24,8 @@ class PauseMenu :
     static const int QUIT = 4;
 
     PauseMenu(SDL_Surface*,SDL_Surface*);
+    PauseMenu(SDL_Surface*,SDL_Surface*,Mix_Chunk *s,Mix_Chunk *s2);
+
     ~PauseMenu();
 
     void setBack(SDL_Surface*);

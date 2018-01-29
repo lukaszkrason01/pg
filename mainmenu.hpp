@@ -4,9 +4,15 @@
 #include "Button.hpp"
 #include "Texture.hpp"
 
+#include "SDL/SDL_mixer.h"
+
 class MainMenu : public Texture
 {
     private :
+        Mix_Chunk *sound;
+        Mix_Chunk *sound2;
+        Mix_Music *music;
+
         Button *newGame;
         Button *highscore;
         Button *quit;
@@ -17,6 +23,7 @@ class MainMenu : public Texture
         static const int QUIT=3;
 
         MainMenu(SDL_Surface*,SDL_Surface*);
+        MainMenu(SDL_Surface*,SDL_Surface*,Mix_Chunk*,Mix_Chunk*,Mix_Music*);
         ~MainMenu();
 
         int action();
@@ -26,6 +33,7 @@ class MainMenu : public Texture
         void show();
         void handle_event(SDL_Event event);
         void refresh();
+        void play_music();
 };
 
 #endif // MAINMENU_HPP_INCLUDED

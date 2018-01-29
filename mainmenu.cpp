@@ -4,6 +4,12 @@ MainMenu::MainMenu(SDL_Surface *sur,SDL_Surface *scr):Texture(sur,scr)
 {
 }
 
+MainMenu::MainMenu(SDL_Surface *sur,SDL_Surface *scr, Mix_Chunk *s,Mix_Chunk* s2,Mix_Music *m):Texture(sur,scr)
+{
+    sound = s;
+    sound2 = s2;
+    music = m;
+}
 MainMenu::~MainMenu()
 {
     delete newGame;
@@ -12,18 +18,18 @@ MainMenu::~MainMenu()
 }
 void MainMenu::setnewgame(SDL_Surface *sur)
 {
-    newGame=new Button(143,142,330,60,sur,screen);
+    newGame=new Button(143,142,330,60,sur,screen,sound,sound2);
     newGame->set_clips();
 }
 void MainMenu::sethighscore(SDL_Surface *sur)
 {
-    highscore = new Button(143,242,330,60,sur,screen);
+    highscore = new Button(143,242,330,60,sur,screen,sound,sound2);
     highscore -> set_clips();
 }
 
 void MainMenu::setquit(SDL_Surface *sur)
 {
-    quit = new Button(143,342,330,60,sur,screen);
+    quit = new Button(143,342,330,60,sur,screen,sound,sound2);
     quit -> set_clips();
 }
 int MainMenu::action()
@@ -47,6 +53,7 @@ void MainMenu::refresh()
     newGame->refresh();
     highscore->refresh();
     quit->refresh();
+    Mix_HaltMusic();
 }
 void MainMenu::show()
 {
@@ -58,4 +65,13 @@ void MainMenu::show()
     newGame->show();
     highscore->show();
     quit->show();
+}
+
+void MainMenu::play_music()
+{
+    if( Mix_PlayingMusic() == 0 )
+    {
+        //Play the music
+        Mix_PlayMusic( music, -1 );
+    }
 }

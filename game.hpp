@@ -4,6 +4,8 @@
 #include <cstdlib>
 
 #include "SDL/SDL_ttf.h"
+#include "SDL/SDL_mixer.h"
+
 #include "Sizes.h"
 #include "Hero.hpp"
 #include "Floor.hpp"
@@ -18,6 +20,8 @@ class Game
     const static int TIME_TO_MORE_DIFFICULT=30000;
     const static int FLOORS=6;
     const static int NEXT_FLOOR=20;
+
+    Mix_Music *music;
 
     int counterFloors;
     int difficult;
@@ -36,9 +40,20 @@ class Game
     Background *background;
     RightCorner *corner;
     Floor *base[FLOORS];
-    Game(SDL_Surface *heroSpr,SDL_Surface *floorSpr, SDL_Surface *backgroudSpr, TTF_Font *messegeFont, SDL_Surface *screen);
+    Game(SDL_Surface *heroSpr,SDL_Surface *floorSpr,
+         SDL_Surface *backgroudSpr,
+         TTF_Font *messegeFont,
+         SDL_Surface *screen,
+         Mix_Chunk *s,
+         Mix_Chunk *s2,
+         Mix_Chunk *s3,
+         Mix_Chunk *s4,
+         Mix_Music *m);
 
     Game();
+    void play_music();
+    void stop_music();
+    void pause_music();
     void setHud(Timer*);
     void setCamera(Timer*);
     void draw();

@@ -5,6 +5,7 @@
 #include "Sizes.h"
 #include "HUDMessege.hpp"
 #include "SDL/SDL_ttf.h"
+#include "SDL/SDL_mixer.h"
 
 #include <string>
 
@@ -48,7 +49,10 @@ public:
     StringInput *player;
     bool nameEntered;
 
-    GameOver(SDL_Surface* scr , TTF_Font *f);
+    Mix_Chunk *yeah;
+    Mix_Chunk *loose;
+
+    GameOver(SDL_Surface* scr , TTF_Font *f, Mix_Chunk *y,Mix_Chunk *l);
 
     void show();
     void update();
@@ -57,6 +61,7 @@ public:
     void newRecord();
     void refresh();
     bool nameWriting();
+    void play_sound();
 };
 
 #endif // GAMEOVER_HPP_INCLUDED

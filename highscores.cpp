@@ -20,6 +20,25 @@ HighScores::HighScores(SDL_Surface *but, SDL_Surface *sur,SDL_Surface *scr,TTF_F
     }
 }
 
+HighScores::HighScores(SDL_Surface *but, SDL_Surface *sur,SDL_Surface *scr,TTF_Font *f,Mix_Chunk *s,Mix_Chunk *s2,Mix_Music *m)
+:Texture(sur,scr)
+{
+    music = m;
+    Font = f;
+    Color.b=255;
+    Color.g=255;
+    Color.r=255;
+
+    back = new Button(143,400,330,60,but,scr,s,s2);
+    back->set_clips();
+
+    scores= new Filehs();
+    for (int i = 0 ; i < scores->MAX_SIZE ; ++i)
+    {
+        player[i] = new Messege(screen);
+        score [i] = new Messege(screen);
+    }
+}
 HighScores::~HighScores()
 {
     for (int i = 0 ; i < scores->size ; ++i)
@@ -42,7 +61,11 @@ int HighScores::getWorst()
 }
 int HighScores::action()
 {
-    if(back->action()) return 1;
+    if(back->action())
+    {
+        Mix_HaltMusic();
+        return 1;
+    }
     return 0;
 }
 
@@ -53,6 +76,11 @@ void HighScores::refresh()
 
 void HighScores::update()
 {
+    if( Mix_PlayingMusic() == 0 )
+    {
+        //Play the music
+        Mix_PlayMusic( music, -1 );
+    }
     for(int i=0;i<scores->size;i++)
     {
         player[i] -> make_messege(scores->getGamer(i),Font, Color);

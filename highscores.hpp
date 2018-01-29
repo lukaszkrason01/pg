@@ -6,6 +6,8 @@
 #include "Button.hpp"
 #include "filehs.hpp"
 
+#include "SDL/SDL_mixer.h"
+
 #include <sstream>
 
 class HighScores : Texture
@@ -14,6 +16,7 @@ class HighScores : Texture
     Button *back;
     Messege *player[5];
 
+    Mix_Music *music;
 
     int widthofscore[5];
     TTF_Font *Font;
@@ -24,7 +27,18 @@ class HighScores : Texture
     Messege *score[5];
     static const int BACK = 1;
 
-    HighScores(SDL_Surface* ,SDL_Surface* ,SDL_Surface* , TTF_Font *f);
+    HighScores(SDL_Surface* ,
+               SDL_Surface* ,
+               SDL_Surface* ,
+               TTF_Font *f);
+
+    HighScores(SDL_Surface* ,
+               SDL_Surface* ,
+               SDL_Surface* ,
+               TTF_Font *f ,
+               Mix_Chunk *s ,
+               Mix_Chunk *s2,
+               Mix_Music *m);
     ~HighScores();
     void show();
     int action();

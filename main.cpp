@@ -1,6 +1,7 @@
 #include "SDL/SDL.h"
 #include "SDL/SDL_image.h"
 #include "SDL/SDL_ttf.h"
+#include "SDL/SDL_mixer.h"
 
 #include "Timer.hpp"
 #include "Pause.hpp"
@@ -41,6 +42,19 @@ SDL_Surface* highscore_main_menu= NULL;
 
 SDL_Surface* highscore_menu = NULL;
 SDL_Surface* back = NULL;
+
+Mix_Chunk *button_focus_sound = NULL;
+Mix_Chunk *button_click_sound = NULL;
+Mix_Chunk *hero_jump_sound = NULL;
+Mix_Chunk *hero_jump_sound2 = NULL;
+Mix_Chunk *hero_jump_sound3 = NULL;
+Mix_Chunk *hero_walk_sound = NULL;
+Mix_Chunk *record_sound = NULL;
+Mix_Chunk *loose_sound = NULL;
+
+Mix_Music *highscore_music = NULL;
+Mix_Music *mainmenu_music = NULL;
+Mix_Music *game_music = NULL;
 
 TTF_Font *messages_font = NULL;
 SDL_Event event;
@@ -95,6 +109,11 @@ bool init()
     if(pause_screen == NULL) return false;
     if( TTF_Init() == -1 ) return false;
 
+    if( Mix_OpenAudio( 22050, MIX_DEFAULT_FORMAT, 2, 4096 ) == -1 )
+    {
+        return false;
+    }
+
     SDL_WM_SetCaption( "Studnia", NULL );
     return true;
 }
@@ -147,6 +166,41 @@ bool load_files()
     messages_font=TTF_OpenFont("font//vademecum.ttf",32);
     if(messages_font == NULL) return false;
 
+    button_focus_sound = Mix_LoadWAV( "data//wav//click3.wav" );
+    if(button_focus_sound == NULL) return false;
+
+    button_click_sound = Mix_LoadWAV("data//wav//click4.wav");
+    if(button_click_sound == NULL) return false;
+
+    hero_jump_sound = Mix_LoadWAV("data//wav//shortjump.wav");
+    if(hero_jump_sound == NULL ) return false;
+
+    hero_jump_sound2 =Mix_LoadWAV("data//wav//mediumjump.wav");
+    if(hero_jump_sound2 ==NULL) return false;
+
+    hero_jump_sound3 = Mix_LoadWAV("data//wav//longjump.wav");
+    if(hero_jump_sound3 == NULL) return false;
+
+    hero_walk_sound = Mix_LoadWAV("data//wav//walk.wav");
+    if(hero_walk_sound == NULL) return false;
+
+    record_sound = Mix_LoadWAV("data//wav//record.wav");
+    if(record_sound == NULL) return false;
+
+    loose_sound = Mix_LoadWAV("data//wav//loose.wav");
+    if(loose_sound == NULL) return false;
+
+    highscore_music = Mix_LoadMUS("data//wav//highscores.wav");
+    if(highscore_music == NULL) return false;
+
+    mainmenu_music = Mix_LoadMUS("data//wav//mainmenu.wav");
+    if(mainmenu_music == NULL) return false;
+
+    game_music = Mix_LoadMUS("data//wav//game.wav");
+    if(game_music == NULL) return false;
+
+    hero_jump_sound2->volume=50;
+    hero_walk_sound ->volume = 50;
     return true;
 }
 
@@ -168,6 +222,21 @@ void clean_up()
     SDL_FreeSurface(back);
 
     TTF_CloseFont( messages_font );
+
+    Mix_FreeChunk(button_focus_sound);
+    Mix_FreeChunk(button_click_sound);
+    Mix_FreeChunk(hero_jump_sound);
+    Mix_FreeChunk(hero_jump_sound2);
+    Mix_FreeChunk(hero_jump_sound3);
+    Mix_FreeChunk(hero_walk_sound);
+    Mix_FreeChunk(record_sound);
+    Mix_FreeChunk(loose_sound);
+
+    Mix_FreeMusic(highscore_music);
+    Mix_FreeMusic(mainmenu_music);
+    Mix_FreeMusic(game_music);
+
+    Mix_CloseAudio();
     TTF_Quit();
     SDL_Quit();
 }
@@ -175,6 +244,7 @@ void unpause()
 {
     pause->refresh();
     state = GAME;
+    game -> pause_music();
     game_time->unpause();
 }
 void restart()
@@ -184,7 +254,12 @@ void restart()
                    floortexture,
                    bg,
                    messages_font,
-                   screen);
+                   screen,
+                   hero_jump_sound,
+                   hero_jump_sound2,
+                   hero_jump_sound3,
+                   hero_walk_sound,
+                   game_music);
 }
 
 void saveRecord()
@@ -199,7 +274,7 @@ void saveRecord()
     gameover -> refresh();
 }
 
-void handle_event()
+int handle_event()
 {
     switch (state)
     {
@@ -229,6 +304,7 @@ void handle_event()
             {
             case GAME:
                 state = PAUSE;
+                game -> pause_music();
                 game_time->pause();
                 break;
             case PAUSE:
@@ -239,6 +315,7 @@ void handle_event()
                 {
                     if(newRecordToSave)
                         saveRecord();
+                    Mix_HaltChannel(2);
                     state = MAIN_MENU;
                 }
                 break;
@@ -250,6 +327,7 @@ void handle_event()
         }
 
     if( event.type == SDL_QUIT ) state = QUIT;
+    return 0;
 }
 
 
@@ -258,6 +336,7 @@ void behavior()
     switch (state)
     {
         case GAME:
+            game->play_music();
             game->setHud(game_time);
             game->setCamera(game_time);
             game->newFloor();
@@ -266,12 +345,15 @@ void behavior()
 
             if(game->hero->box.y > SCREEN_HEIGHT)
             {
+                game ->stop_music();
                 if( ( game->getScore() > highscores -> getWorst() ) && ( game->getScore() > 0 ) )
                 {
                     gameover -> newRecord();
                     newRecordToSave = true;
                 }
                 gameover->update();
+                gameover -> play_sound();
+
                 state= GAME_OVER;
             }
             if( SDL_Flip( screen ) == -1 ) exit(EXIT_FAILURE);
@@ -286,7 +368,8 @@ void behavior()
                     unpause();
                     break;
                 case PauseMenu::MAIN_MENU:
-                    pause->refresh();
+                    pause-> refresh();
+                    game -> stop_music();
                     state = MAIN_MENU;
                     break;
                 case PauseMenu::QUIT:
@@ -299,6 +382,7 @@ void behavior()
         case MAIN_MENU:
             mainmenu->show();
             game_time->stop();
+            mainmenu->play_music();
 
             switch (mainmenu->action())
             {
@@ -353,26 +437,49 @@ int main( int argc, char* args[] )
 
     Timer fps;
 
-    Filehs f;
+    gameover =new GameOver(screen,
+                           messages_font,
+                           record_sound,
+                           loose_sound);
 
-    gameover =new GameOver(screen,messages_font);
-
-    mainmenu=new MainMenu(main_menu,screen);
+    mainmenu=new MainMenu(main_menu,
+                          screen,
+                          button_focus_sound,
+                          button_click_sound,
+                          mainmenu_music);
     mainmenu->setnewgame(new_game_main_menu);
     mainmenu->sethighscore(highscore_main_menu);
     mainmenu->setquit(quit_button_pause_menu);
 
-    highscores = new HighScores(back,highscore_menu,screen,messages_font);
+    highscores = new HighScores(back,
+                                highscore_menu,
+                                screen,
+                                messages_font,
+                                button_focus_sound,
+                                button_click_sound,
+                                highscore_music);
 
-    game= new Game(herosprite,floortexture,bg,messages_font,screen);
+    game= new Game(herosprite,
+                   floortexture,
+                   bg,
+                   messages_font,
+                   screen,
+                   hero_jump_sound,
+                   hero_jump_sound2,
+                   hero_jump_sound3,
+                   hero_walk_sound,
+                   game_music);
 
-    pause=new PauseMenu(pause_menu,pause_screen);
+    pause=new PauseMenu(pause_menu,
+                        pause_screen,
+                        button_focus_sound,
+                        button_click_sound);
     pause->setBack(back_button_pause_menu);
     pause->setRestart(restart_button_pause_menu);
     pause->setMainmenu (main_menu_button_pause_menu);
     pause->setQuit(quit_button_pause_menu);
 
-    state = GAME;
+    state = MAIN_MENU;
 
     game_time = new Timer();
 

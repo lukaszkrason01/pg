@@ -11,11 +11,33 @@ Button::Button( int x, int y, int w, int h ,SDL_Surface *sur,SDL_Surface *scr)
 
     pressed = false;
     clicked = false;
+    focused = false;
 
     //Set the default sprite
     clip = &clips[ CLIP_MOUSEOUT ];
+
+    sound = NULL;
+    sound2 = NULL;
 }
 
+Button::Button(int x, int y, int w, int h ,SDL_Surface *sur,SDL_Surface *scr, Mix_Chunk *s, Mix_Chunk *s2)
+:Texture(sur,scr)
+{
+    //Set the button's attributes
+    box.x = x;
+    box.y = y;
+    box.w = w;
+    box.h = h;
+
+    pressed = false;
+    clicked = false;
+    focused = false;
+
+    //Set the default sprite
+    clip = &clips[ CLIP_MOUSEOUT ];
+    sound = s;
+    sound2 = s2;
+}
 void Button::set_clips()
 {
     //Clip the sprite sheet
@@ -57,6 +79,9 @@ void Button::handle_events(SDL_Event event)
         {
             //Set the button sprite
             clip = &clips[ CLIP_MOUSEOVER ];
+            if(focused == false)
+                Mix_PlayChannel( -1, sound, 0 );
+            focused = true;
         }
         //If not
         else
@@ -64,6 +89,7 @@ void Button::handle_events(SDL_Event event)
             //Set the button sprite
             clip = &clips[ CLIP_MOUSEOUT ];
             pressed=false;
+            focused = false;
         }
     }
     //If a mouse button was pressed
@@ -99,6 +125,7 @@ void Button::handle_events(SDL_Event event)
             if( ( x > box.x ) && ( x < box.x + box.w ) && ( y > box.y ) && ( y < box.y + box.h ))
             {
                 //Set the button sprite
+                Mix_PlayChannel(-1, sound2, 0);
                 clip = &clips[ CLIP_MOUSEUP ];
                 clicked = true;
             }
@@ -113,6 +140,7 @@ bool Button::action()
 
 void Button::refresh()
 {
+    focused = false;
     pressed = false;
     clicked = false;
     clip = &clips[CLIP_MOUSEOUT];

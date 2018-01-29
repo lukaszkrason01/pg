@@ -1,10 +1,20 @@
 #include "game.hpp"
 
-Game::Game(SDL_Surface *heroSpr,SDL_Surface *floorSpr, SDL_Surface *backgroudSpr, TTF_Font *messegeFont, SDL_Surface *screen)
+Game::Game(SDL_Surface *heroSpr,
+           SDL_Surface *floorSpr,
+           SDL_Surface *backgroudSpr,
+           TTF_Font *messegeFont,
+           SDL_Surface *screen,
+           Mix_Chunk *s,
+           Mix_Chunk *s2,
+           Mix_Chunk *s3,
+           Mix_Chunk *s4,
+           Mix_Music *m)
 {
     srand(SDL_GetTicks());
 
-    hero = new Hero(heroSpr,screen);
+    music = m;
+    hero = new Hero(heroSpr,screen,s,s2,s3,s4);
     hero -> clip();
 
     base[0]= new Floor(20,0 ,SCREEN_HEIGHT-FLOOR_HEIGHT_WIDTH, floorSpr,screen);
@@ -46,6 +56,37 @@ Game::~Game()
         delete base[i];
     delete *base;       //błąd
 }
+
+void Game::play_music()
+{
+    if( Mix_PlayingMusic() == 0 )
+    {
+        //Play the music
+        Mix_PlayMusic( music, -1 );
+    }
+}
+
+void Game::pause_music()
+{
+    if( Mix_PausedMusic() == 1 )
+    {
+        //Resume the music
+        Mix_ResumeMusic();
+    }
+    //If the music is playing
+    else
+    {
+        //Pause the music
+        Mix_PauseMusic();
+    }
+}
+
+void Game::stop_music()
+{
+    if(Mix_PlayingMusic() != 0)
+        Mix_HaltMusic();
+}
+
 void Game::setHud(Timer *t)
 {
     if(!hero->jumping && !hero->falling)

@@ -1,13 +1,17 @@
 #include "Hero.hpp"
 
-Hero::Hero(SDL_Surface *sur,SDL_Surface *sc):Texture(sur,sc)
+Hero::Hero(SDL_Surface *sur,SDL_Surface *sc, Mix_Chunk *j,Mix_Chunk *j2,Mix_Chunk *j3,Mix_Chunk *w):Texture(sur,sc)
 {
+    jump = j;
+    jump2 = j2;
+    jump3 = j3;
+    walk =w;
 
     whichclip=0;
     changeclip=0;
     xVel=yVel=0;
-    box.x=320;
-    box.y=480-HERO_HEIGHT-32;
+    box.x=(SCREEN_WIDTH - HERO_WIDTH) / 2;
+    box.y=SCREEN_HEIGHT-HERO_HEIGHT-32;
     box.w=HERO_WIDTH;
     box.h=HERO_HEIGHT;
 
@@ -58,9 +62,11 @@ void Hero::handle_event(SDL_Event event,bool pause)
         {
             case SDLK_SPACE:
                 jumpingOn=true;
+
                 if(!falling && !pause)
                 {
-                  jumping=true;
+                    play_sound();
+                    jumping=true;
                 }
                 break;
 
@@ -97,6 +103,7 @@ void Hero::handle_event(SDL_Event event,bool pause)
     }
 }
 void Hero::move(){
+    bool stop_sound = false;
         //left right
         if(runDuration > SPEED_DURATION_1)
         {
@@ -112,6 +119,7 @@ void Hero::move(){
 
         box.x += xVel;
 
+
         if((xVel !=0 ) &&
            (xVel == lastxVel) &&
            (( box.x > 0 ) || ( box.x + HERO_WIDTH < SCREEN_WIDTH )))
@@ -122,11 +130,13 @@ void Hero::move(){
         if( box.x < 0  )
         {
             box.x = 0;
+            stop_sound =true;
         }
 
         if(box.x + HERO_WIDTH > SCREEN_WIDTH)
         {
             box.x = SCREEN_WIDTH-HERO_WIDTH;
+            stop_sound = true;
         }
 
         //up down
@@ -147,9 +157,11 @@ void Hero::move(){
                     break;
                 default : break;
             }
-        if (jumping){
+        if (jumping)
+        {
             box.y-=(--jumpAltitude)*2;
-            if(!--jumpDuration){
+            if(!--jumpDuration)
+            {
                 jumping=false;
                 falling=true;
             }
@@ -159,7 +171,34 @@ void Hero::move(){
             box.y+=(++fallDuration)/2;
             box.y += yVel;
         }else fallDuration=GRAVITY;
-        if(!falling&&jumpingOn)jumping=true;
+        if(!falling && jumpingOn && !jumping)
+        {
+            play_sound();
+            jumping=true;
+        }
+        if(stop_sound) Mix_HaltChannel(1);
+        if(Mix_Playing(1) && (falling || jumping)) Mix_HaltChannel(1);
+        if(xVel != 0 && !stop_sound && !Mix_Playing(1) && !falling && !jumping)
+            Mix_PlayChannel(1,walk,0);
+
+}
+
+void Hero::play_sound()
+{
+    switch (level)
+    {
+    case 0 :
+        Mix_PlayChannel(-1,jump,0);
+        break;
+
+    case 1 :
+        Mix_PlayChannel(-1,jump2,0);
+        break;
+    case 2 :
+        Mix_PlayChannel(-1,jump3,0);
+        break;
+    default: break;
+    }
 
 }
 

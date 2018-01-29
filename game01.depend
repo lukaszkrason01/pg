@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1517143358 source:d:\code\test03\game01\game.cpp
+1517256145 source:d:\code\test03\game01\game.cpp
 	"game.hpp"
 
 1509917799 d:\code\test03\game01\timer.h
@@ -10,15 +10,16 @@
 
 1510932693 d:\code\test03\game01\timer.hpp
 
-1517060619 d:\code\test03\game01\hero.hpp
-	"Texture.hpp"
+1517241695 d:\code\test03\game01\hero.hpp
 	"SDL/SDL.h"
+	"SDL/SDL_mixer.h"
+	"Texture.hpp"
 	"Sizes.h"
 
-1516710821 source:d:\code\test03\game01\hero.cpp
+1517242873 source:d:\code\test03\game01\hero.cpp
 	"Hero.hpp"
 
-1516727753 source:d:\code\test03\game01\pause.cpp
+1517241118 source:d:\code\test03\game01\pause.cpp
 	"Pause.hpp"
 
 1516713508 source:d:\code\test03\game01\floor.cpp
@@ -117,20 +118,23 @@
 1511099022 source:d:\code\test03\game01\src\texture.cpp
 	"Texture.hpp"
 
-1516727753 d:\code\test03\game01\pause.hpp
+1517235413 d:\code\test03\game01\pause.hpp
+	"SDL/SDL_mixer.h"
 	"Texture.hpp"
 	"Button.hpp"
 
-1512995392 d:\code\test03\game01\button.hpp
+1517241059 d:\code\test03\game01\button.hpp
 	"Texture.hpp"
+	"SDL/SDL_mixer.h"
 
-1512987252 source:d:\code\test03\game01\button.cpp
+1517241059 source:d:\code\test03\game01\button.cpp
 	"Button.hpp"
 
-1517184144 source:d:\code\test03\game01\main.cpp
+1517256144 source:d:\code\test03\game01\main.cpp
 	"SDL/SDL.h"
 	"SDL/SDL_image.h"
 	"SDL/SDL_ttf.h"
+	"SDL/SDL_mixer.h"
 	"Timer.hpp"
 	"Pause.hpp"
 	"game.hpp"
@@ -145,9 +149,10 @@
 	<sstream>
 	"filehs.hpp"
 
-1517164443 d:\code\test03\game01\game.hpp
+1517256145 d:\code\test03\game01\game.hpp
 	<cstdlib>
 	"SDL/SDL_ttf.h"
+	"SDL/SDL_mixer.h"
 	"Sizes.h"
 	"Hero.hpp"
 	"Floor.hpp"
@@ -167,22 +172,24 @@
 	"Pause.hpp"
 	"game.hpp"
 
-1516727753 source:d:\code\test03\game01\mainmenu.cpp
+1517253885 source:d:\code\test03\game01\mainmenu.cpp
 	"mainmenu.hpp"
 
-1516725566 d:\code\test03\game01\mainmenu.hpp
+1517253885 d:\code\test03\game01\mainmenu.hpp
 	"Button.hpp"
 	"Texture.hpp"
+	"SDL/SDL_mixer.h"
 
-1517164778 source:d:\code\test03\game01\highscores.cpp
+1517251196 source:d:\code\test03\game01\highscores.cpp
 	"highscores.hpp"
 	<string>
 
-1517063439 d:\code\test03\game01\highscores.hpp
+1517250933 d:\code\test03\game01\highscores.hpp
 	"Texture.hpp"
 	"HUDMessege.hpp"
 	"Button.hpp"
 	"filehs.hpp"
+	"SDL/SDL_mixer.h"
 	<sstream>
 
 1517170238 source:d:\code\test03\game01\filehs.cpp
@@ -193,13 +200,14 @@
 1517063439 d:\code\test03\game01\filehs.hpp
 	<string>
 
-1517163994 source:d:\code\test03\game01\gameover.cpp
+1517249247 source:d:\code\test03\game01\gameover.cpp
 	"gameover.hpp"
 
-1517163931 d:\code\test03\game01\gameover.hpp
+1517249094 d:\code\test03\game01\gameover.hpp
 	"Texture.hpp"
 	"Sizes.h"
 	"HUDMessege.hpp"
 	"SDL/SDL_ttf.h"
+	"SDL/SDL_mixer.h"
 	<string>
 

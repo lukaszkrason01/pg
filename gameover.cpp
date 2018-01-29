@@ -1,7 +1,9 @@
 #include "gameover.hpp"
 
-GameOver::GameOver(SDL_Surface *screen,TTF_Font *f)
+GameOver::GameOver(SDL_Surface *screen,TTF_Font *f, Mix_Chunk *y,Mix_Chunk *l)
 {
+    yeah = y;
+    loose = l;
     font = f;
     color.r=color.g=color.b=255;
     nameEntered = true;
@@ -24,6 +26,12 @@ void GameOver::update()
         press -> make_messege("Enter your name",font,color);
     }
 
+}
+
+void GameOver::play_sound()
+{
+    if(!nameEntered) Mix_PlayChannel(2,yeah,0);
+    else Mix_PlayChannel(2,loose,0);
 }
 
 void GameOver::refresh()

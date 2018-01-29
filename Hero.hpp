@@ -1,8 +1,10 @@
 #ifndef HERO_HPP_INCLUDED
 #define HERO_HPP_INCLUDED
 
-#include "Texture.hpp"
 #include "SDL/SDL.h"
+#include "SDL/SDL_mixer.h"
+
+#include "Texture.hpp"
 #include "Sizes.h"
 
 class Hero
@@ -49,7 +51,12 @@ public:
     SDL_Rect hero_clips[ HERO_SPRITES ];
     bool jumping,falling,jumpingOn;
 
-    Hero(SDL_Surface* sur,SDL_Surface* sc);
+    Mix_Chunk *jump;
+    Mix_Chunk *jump2;
+    Mix_Chunk *jump3;
+    Mix_Chunk *walk;
+
+    Hero(SDL_Surface* sur,SDL_Surface* sc,Mix_Chunk *j,Mix_Chunk *j2,Mix_Chunk *j3,Mix_Chunk *w);
     Hero();
     ~Hero();
 
@@ -60,5 +67,6 @@ public:
     void set_camera(int offset);
     void clip();
     void dont_go();
+    void play_sound();
 };
 #endif // HERO_HPP_INCLUDED
