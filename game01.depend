@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1516713073 source:d:\code\test03\game01\game.cpp
+1517143358 source:d:\code\test03\game01\game.cpp
 	"game.hpp"
 
 1509917799 d:\code\test03\game01\timer.h
@@ -10,7 +10,7 @@
 
 1510932693 d:\code\test03\game01\timer.hpp
 
-1516710821 d:\code\test03\game01\hero.hpp
+1517060619 d:\code\test03\game01\hero.hpp
 	"Texture.hpp"
 	"SDL/SDL.h"
 	"Sizes.h"
@@ -48,13 +48,13 @@
 	"Hud.hpp"
 	"HUDMessege.hpp"
 
-1513024524 d:\code\test03\game01\hudmessege.hpp
+1516904379 d:\code\test03\game01\hudmessege.hpp
 	"Texture.hpp"
 	"SDL/SDL.h"
 	"SDL/SDL_ttf.h"
 	<sstream>
 
-1516895916 source:d:\code\test03\game01\hudmessege.cpp
+1517182885 source:d:\code\test03\game01\hudmessege.cpp
 	"HUDMessege.hpp"
 
 1511132517 source:d:\code\test03\game01\src\hud.cpp
@@ -127,7 +127,7 @@
 1512987252 source:d:\code\test03\game01\button.cpp
 	"Button.hpp"
 
-1516897724 source:d:\code\test03\game01\main.cpp
+1517184144 source:d:\code\test03\game01\main.cpp
 	"SDL/SDL.h"
 	"SDL/SDL_image.h"
 	"SDL/SDL_ttf.h"
@@ -139,12 +139,13 @@
 	"highscores.hpp"
 	"filehs.hpp"
 	"Hero.hpp"
+	"gameover.hpp"
 	<string>
 	<fstream>
 	<sstream>
 	"filehs.hpp"
 
-1516883215 d:\code\test03\game01\game.hpp
+1517164443 d:\code\test03\game01\game.hpp
 	<cstdlib>
 	"SDL/SDL_ttf.h"
 	"Sizes.h"
@@ -173,22 +174,32 @@
 	"Button.hpp"
 	"Texture.hpp"
 
-1516896235 source:d:\code\test03\game01\highscores.cpp
+1517164778 source:d:\code\test03\game01\highscores.cpp
 	"highscores.hpp"
 	<string>
 
-1516895211 d:\code\test03\game01\highscores.hpp
+1517063439 d:\code\test03\game01\highscores.hpp
 	"Texture.hpp"
 	"HUDMessege.hpp"
 	"Button.hpp"
 	"filehs.hpp"
 	<sstream>
 
-1516897552 source:d:\code\test03\game01\filehs.cpp
+1517170238 source:d:\code\test03\game01\filehs.cpp
 	"filehs.hpp"
 	<fstream>
 	<cstdlib>
 
-1516899658 d:\code\test03\game01\filehs.hpp
+1517063439 d:\code\test03\game01\filehs.hpp
+	<string>
+
+1517163994 source:d:\code\test03\game01\gameover.cpp
+	"gameover.hpp"
+
+1517163931 d:\code\test03\game01\gameover.hpp
+	"Texture.hpp"
+	"Sizes.h"
+	"HUDMessege.hpp"
+	"SDL/SDL_ttf.h"
 	<string>
 

@@ -13,7 +13,7 @@ HighScores::HighScores(SDL_Surface *but, SDL_Surface *sur,SDL_Surface *scr,TTF_F
     back->set_clips();
 
     scores= new Filehs();
-    for (int i = 0 ; i < scores->size ; ++i)
+    for (int i = 0 ; i < scores->MAX_SIZE ; ++i)
     {
         player[i] = new Messege(screen);
         score [i] = new Messege(screen);
@@ -31,6 +31,15 @@ HighScores::~HighScores()
     delete back;
 }
 
+void HighScores::addRecord(std::string player, int score)
+{
+    scores -> addRecord(player, score);
+}
+
+int HighScores::getWorst()
+{
+    return scores -> getWorst();
+}
 int HighScores::action()
 {
     if(back->action()) return 1;
@@ -69,8 +78,8 @@ void HighScores::show()
     apply_surface(&offset);
     for(int i=0;i<scores->size;i++)
     {
-        player[i] -> show(50,100+50*i);
-        score[i] -> show(500,100+50*i);
+        player[i] -> show(100,100+50*i);
+        score[i] -> show(500-score[i]->text->w,100+50*i);
     }
     back->show();
 }

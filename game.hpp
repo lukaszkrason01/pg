@@ -24,6 +24,8 @@ class Game
     int inWhichFloorHeroIs;
     int floor_level;
     int camera_offset;
+    int score;
+    int time;
     bool start_game;
 
     bool check_collision( SDL_Rect A, SDL_Rect B );
@@ -42,7 +44,7 @@ class Game
     void draw();
     void behavior(Timer *t);
     void newFloor();
-
+    int getScore();
     void handle_event(SDL_Event event);
 
     virtual ~Game();

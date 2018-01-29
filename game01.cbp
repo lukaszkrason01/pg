@@ -48,8 +48,12 @@
 		<Unit filename="Texture.hpp" />
 		<Unit filename="Timer.cpp" />
 		<Unit filename="Timer.hpp" />
+		<Unit filename="filehs.cpp" />
+		<Unit filename="filehs.hpp" />
 		<Unit filename="game.cpp" />
 		<Unit filename="game.hpp" />
+		<Unit filename="gameover.cpp" />
+		<Unit filename="gameover.hpp" />
 		<Unit filename="highscores.cpp" />
 		<Unit filename="highscores.hpp" />
 		<Unit filename="main.cpp" />

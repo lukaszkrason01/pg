@@ -23,6 +23,8 @@ Game::Game(SDL_Surface *heroSpr,SDL_Surface *floorSpr, SDL_Surface *backgroudSpr
     floor_level=0;
     camera_offset=0;
     start_game = false;
+    score = 0;
+    time = 0;
 }
 
 Game::Game()
@@ -48,17 +50,23 @@ void Game::setHud(Timer *t)
 {
     if(!hero->jumping && !hero->falling)
     {
-        corner->updateScore(base[inWhichFloorHeroIs]->counter * FLOORS + inWhichFloorHeroIs);
+        score = base[inWhichFloorHeroIs]->counter * FLOORS + inWhichFloorHeroIs;
+        corner->updateScore(score);
     }
 
     if(t->is_started())
     {
-        corner->updateTime((difficult*TIME_TO_MORE_DIFFICULT + t->get_ticks() - TIME_TO_MORE_DIFFICULT)/1000);
+        time = (difficult*TIME_TO_MORE_DIFFICULT + t->get_ticks() - TIME_TO_MORE_DIFFICULT)/1000;
+        corner->updateTime(time);
     }
 
     corner->updateLevel(difficult);
 
     corner->updateFloor(floor_level);
+}
+int Game::getScore()
+{
+    return score;
 }
 
 void Game::draw()

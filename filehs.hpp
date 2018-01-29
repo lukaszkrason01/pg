@@ -16,8 +16,9 @@ class Filehs
     int getWorst();
     const char* getGamer(int i);
     const char* getScore(int i);
+    int digits(int i);
     void save();
-
+    void addRecord(std::string player, int score);
     private:
 
     std::string *gamer;

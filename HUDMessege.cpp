@@ -9,14 +9,14 @@ Messege::Messege(SDL_Surface *scr)
 
 void Messege::make_messege(const char *desc,TTF_Font *f,SDL_Color c)
 {
-    SDL_FreeSurface(text);
+    clean_up();
     text=TTF_RenderText_Solid(f,desc,c);
 }
 
 
 void Messege::show(int x,int y)
 {
-    Texture::apply_surface(x,y,text,screen);
+    if(text != NULL)Texture::apply_surface(x,y,text,screen);
 }
 
 void Messege::clean_up()

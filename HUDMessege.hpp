@@ -11,9 +11,10 @@
 class Messege
 {
     SDL_Surface *screen;
-    SDL_Surface *text;
+
 
     public:
+    SDL_Surface *text;
     Messege(SDL_Surface *scr);
 
     void clean_up();

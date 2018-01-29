@@ -10,6 +10,7 @@
 #include "highscores.hpp"
 #include "filehs.hpp"
 #include "Hero.hpp"
+#include "gameover.hpp"
 
 #include <string>
 #include <fstream>
@@ -25,7 +26,7 @@ SDL_Surface* screen = NULL;
 SDL_Surface* herosprite = NULL;
 SDL_Surface* floortexture=NULL;
 SDL_Surface* bg = NULL;
-SDL_Surface* game_over=NULL;
+SDL_Surface* game_over_surface=NULL;
 
 SDL_Surface* pause_screen=NULL;
 SDL_Surface* pause_menu = NULL;
@@ -60,7 +61,10 @@ Game *game = NULL;
 PauseMenu *pause = NULL;
 MainMenu *mainmenu= NULL;
 HighScores *highscores = NULL;
+GameOver * gameover = NULL;
 Timer *game_time = NULL;
+
+bool newRecordToSave = false;
 
 SDL_Surface *load_image( std::string filename )
 {
@@ -107,8 +111,8 @@ bool load_files()
     floortexture=load_image("jpg//floor.png");
     if(floortexture==NULL) return false;
 
-    game_over=load_image("jpg//game-over.png");
-    if(game_over== NULL) return false;
+    game_over_surface=load_image("jpg//game-over.png");
+    if(game_over_surface== NULL) return false;
 
     pause_menu = load_image("jpg//PAUSE.png");
     if(pause_menu == NULL) return false;
@@ -151,12 +155,17 @@ void clean_up()
     SDL_FreeSurface( herosprite );
     SDL_FreeSurface( bg );
     SDL_FreeSurface( floortexture );
-    SDL_FreeSurface( game_over );
+    SDL_FreeSurface( game_over_surface );
     SDL_FreeSurface (pause_menu );
     SDL_FreeSurface( back_button_pause_menu );
     SDL_FreeSurface(restart_button_pause_menu);
     SDL_FreeSurface(quit_button_pause_menu);
     SDL_FreeSurface(main_menu_button_pause_menu);
+    SDL_FreeSurface(main_menu);
+    SDL_FreeSurface(highscore_main_menu);
+    SDL_FreeSurface(new_game_main_menu);
+    SDL_FreeSurface(highscore_menu);
+    SDL_FreeSurface(back);
 
     TTF_CloseFont( messages_font );
     TTF_Quit();
@@ -178,6 +187,18 @@ void restart()
                    screen);
 }
 
+void saveRecord()
+{
+    std::string player = gameover -> player -> getStr();
+    int score = game -> getScore();
+
+    newRecordToSave = false;
+
+    highscores -> addRecord (player , score);
+
+    gameover -> refresh();
+}
+
 void handle_event()
 {
     switch (state)
@@ -194,6 +215,10 @@ void handle_event()
         break;
     case HIGH_SCORES:
         highscores -> handle_event(event);
+        break;
+    case GAME_OVER:
+        gameover -> handle_event(event);
+        break;
     default : break;
     }
 
@@ -210,7 +235,12 @@ void handle_event()
                 unpause();
                 break;
             case GAME_OVER:
-                state = MAIN_MENU;
+                if(gameover -> nameWriting())
+                {
+                    if(newRecordToSave)
+                        saveRecord();
+                    state = MAIN_MENU;
+                }
                 break;
             case HIGH_SCORES:
                 state = MAIN_MENU;
@@ -221,6 +251,7 @@ void handle_event()
 
     if( event.type == SDL_QUIT ) state = QUIT;
 }
+
 
 void behavior()
 {
@@ -234,7 +265,15 @@ void behavior()
             game->behavior(game_time);
 
             if(game->hero->box.y > SCREEN_HEIGHT)
+            {
+                if( ( game->getScore() > highscores -> getWorst() ) && ( game->getScore() > 0 ) )
+                {
+                    gameover -> newRecord();
+                    newRecordToSave = true;
+                }
+                gameover->update();
                 state= GAME_OVER;
+            }
             if( SDL_Flip( screen ) == -1 ) exit(EXIT_FAILURE);
             break;
         case PAUSE:
@@ -286,7 +325,8 @@ void behavior()
         case GAME_OVER:
             game_time->stop();
             game->draw();
-            Texture::apply_surface(120,40,game_over,screen);
+            gameover -> show();
+
             game->hero->box.y = 700;
             if( SDL_Flip( screen ) == -1 ) exit(EXIT_FAILURE);
             break;
@@ -300,6 +340,7 @@ void behavior()
             }
             if( SDL_Flip( screen ) == -1 ) exit(EXIT_FAILURE);
             break;
+
         default : break;
     }
 }
@@ -313,6 +354,8 @@ int main( int argc, char* args[] )
     Timer fps;
 
     Filehs f;
+
+    gameover =new GameOver(screen,messages_font);
 
     mainmenu=new MainMenu(main_menu,screen);
     mainmenu->setnewgame(new_game_main_menu);
@@ -329,7 +372,7 @@ int main( int argc, char* args[] )
     pause->setMainmenu (main_menu_button_pause_menu);
     pause->setQuit(quit_button_pause_menu);
 
-    state = MAIN_MENU;
+    state = GAME;
 
     game_time = new Timer();
 
@@ -338,7 +381,6 @@ int main( int argc, char* args[] )
     while( state != QUIT )
     {
         fps.start();
-        //////////////////////////////////handlers
         while( SDL_PollEvent( &event ) )
         {
             handle_event();
@@ -349,10 +391,13 @@ int main( int argc, char* args[] )
         {
             SDL_Delay( ( 1000 / FRAMES_PER_SECOND ) - fps.get_ticks() );
         }
+
         ////////testing
 
         std::stringstream caption;
-        caption << "test = " << f.getGamer(2);
+        caption
+        << "score act =" << game ->getScore()
+        ;
         SDL_WM_SetCaption( caption.str().c_str(), NULL );
     }
 

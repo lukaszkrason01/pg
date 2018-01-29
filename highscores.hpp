@@ -13,13 +13,15 @@ class HighScores : Texture
     private:
     Button *back;
     Messege *player[5];
-    Messege *score[5];
-    Filehs *scores;
+
+
     int widthofscore[5];
     TTF_Font *Font;
     SDL_Color Color;
 
     public:
+    Filehs *scores;
+    Messege *score[5];
     static const int BACK = 1;
 
     HighScores(SDL_Surface* ,SDL_Surface* ,SDL_Surface* , TTF_Font *f);
@@ -30,6 +32,8 @@ class HighScores : Texture
     void handle_event(SDL_Event event);
     void update();
     void clean_up();
+    int getWorst();
+    void addRecord(std::string player, int score);
 };
 
 

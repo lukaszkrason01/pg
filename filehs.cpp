@@ -47,14 +47,40 @@ Filehs::Filehs()
 }
 Filehs::~Filehs()
 {
-    save();
     delete gamer;
     delete score;
+}
+
+void Filehs::addRecord(std::string g, int s)
+{
+    if(size < MAX_SIZE)
+    {
+        gamer[size] = g;
+        score[size] = s;
+        size ++;
+    }
+    else
+    {
+        gamer[size-1] = g;
+        score[size-1] = s;
+    }
+    sort();
+    save();
 }
 
 const char* Filehs::getGamer(int i)
 {
     return gamer[i].c_str();
+}
+
+int Filehs::digits( int i)
+{
+    int x = score[i];
+    return (x < 10 ? 1 :
+        (x < 100 ? 2 :
+        (x < 1000 ? 3 :
+        (x < 10000 ? 4 :
+        (x < 100000 ? 5 :6)))));
 }
 
 const char* Filehs::getScore(int i)
@@ -79,7 +105,8 @@ void Filehs::save()
 
 int Filehs::getWorst()
 {
-    return score[size-1];
+     if (size == MAX_SIZE) return score[size-1];
+     else return 0;
 }
 void Filehs::sort()
 {

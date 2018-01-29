@@ -16,7 +16,7 @@ public:
     static const int SPEED_DURATION_2 = 25;
     static const int HERO_JUMP_LEVEL1=11;
     static const int HERO_JUMP_LEVEL2=15;
-    static const int HERO_JUMP_LEVEL3=21;
+    static const int HERO_JUMP_LEVEL3=23;
 
     //hero clips
     static const int HERO_STAND      = 0;
