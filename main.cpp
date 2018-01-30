@@ -58,7 +58,6 @@ Mix_Music *game_music = NULL;
 
 TTF_Font *messages_font = NULL;
 SDL_Event event;
-std::stringstream fame[10];
 
 
 enum STATE{
@@ -336,7 +335,7 @@ void behavior()
     switch (state)
     {
         case GAME:
-            game->play_music();
+            //game->play_music();
             game->setHud(game_time);
             game->setCamera(game_time);
             game->newFloor();
@@ -500,12 +499,12 @@ int main( int argc, char* args[] )
         }
 
         ////////testing
-
-        std::stringstream caption;
-        caption
-        << "score act =" << game ->getScore()
-        ;
-        SDL_WM_SetCaption( caption.str().c_str(), NULL );
+//
+//        std::stringstream caption;
+//        caption
+//        << "score act =" << game ->getScore()
+//        ;
+//        SDL_WM_SetCaption( caption.str().c_str(), NULL );
     }
 
     delete game;

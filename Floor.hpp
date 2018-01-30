@@ -10,7 +10,7 @@
 class Floor : public Texture
 {
     private:
-    static const int NUMBER_OF_FLOORS  = 10;
+    static const int NUMBER_OF_FLOORS  = 2;
     static const int FLOOR_LEVEL1_MAX_LENGHT=13;
     static const int FLOOR_LEVEL1_MIN_LENGHT=6;
     static const int FLOOR_LEVEL2_MAX_LENGHT=9;

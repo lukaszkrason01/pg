@@ -17,7 +17,7 @@ class Game
 {
     private:
     const static int MAX_DIFFICULT = 6;
-    const static int TIME_TO_MORE_DIFFICULT=30000;
+    const static int TIME_TO_MORE_DIFFICULT=10000;
     const static int FLOORS=6;
     const static int NEXT_FLOOR=20;
 

@@ -88,7 +88,7 @@ void Button::handle_events(SDL_Event event)
         {
             //Set the button sprite
             clip = &clips[ CLIP_MOUSEOUT ];
-            pressed=false;
+            pressed = false;
             focused = false;
         }
     }

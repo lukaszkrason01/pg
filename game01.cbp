@@ -59,7 +59,6 @@
 		<Unit filename="main.cpp" />
 		<Unit filename="mainmenu.cpp" />
 		<Unit filename="mainmenu.hpp" />
-		<Unit filename="states.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />
