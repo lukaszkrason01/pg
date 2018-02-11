@@ -211,3 +211,137 @@
 	"SDL/SDL_mixer.h"
 	<string>
 
+1518371120 source:c:\dysk d work\code\test03\game01\background.cpp
+	"Background.hpp"
+
+1518370681 c:\dysk d work\code\test03\game01\background.hpp
+	"Texture.hpp"
+	"Sizes.h"
+
+1512431816 c:\dysk d work\code\test03\game01\texture.hpp
+	"SDL/SDL.h"
+
+1517319440 source:c:\dysk d work\code\test03\game01\button.cpp
+	"Button.hpp"
+
+1517241060 c:\dysk d work\code\test03\game01\button.hpp
+	"Texture.hpp"
+	"SDL/SDL_mixer.h"
+
+1517170240 source:c:\dysk d work\code\test03\game01\filehs.cpp
+	"filehs.hpp"
+	<fstream>
+	<cstdlib>
+
+1517063440 c:\dysk d work\code\test03\game01\filehs.hpp
+	<string>
+
+1516713510 source:c:\dysk d work\code\test03\game01\floor.cpp
+	"Floor.hpp"
+
+1518367050 c:\dysk d work\code\test03\game01\floor.hpp
+	"Texture.hpp"
+	"Sizes.h"
+	"SDL/SDL.h"
+
+1512986048 c:\dysk d work\code\test03\game01\sizes.h
+
+1518370823 source:c:\dysk d work\code\test03\game01\game.cpp
+	"game.hpp"
+
+1518367962 c:\dysk d work\code\test03\game01\game.hpp
+	<cstdlib>
+	"SDL/SDL_ttf.h"
+	"SDL/SDL_mixer.h"
+	"Sizes.h"
+	"Hero.hpp"
+	"Floor.hpp"
+	"Background.hpp"
+	"HUDMessege.hpp"
+	"Timer.hpp"
+
+1517241696 c:\dysk d work\code\test03\game01\hero.hpp
+	"SDL/SDL.h"
+	"SDL/SDL_mixer.h"
+	"Texture.hpp"
+	"Sizes.h"
+
+1516904380 c:\dysk d work\code\test03\game01\hudmessege.hpp
+	"Texture.hpp"
+	"SDL/SDL.h"
+	"SDL/SDL_ttf.h"
+	<sstream>
+
+1510932694 c:\dysk d work\code\test03\game01\timer.hpp
+
+1517249248 source:c:\dysk d work\code\test03\game01\gameover.cpp
+	"gameover.hpp"
+
+1517249096 c:\dysk d work\code\test03\game01\gameover.hpp
+	"Texture.hpp"
+	"Sizes.h"
+	"HUDMessege.hpp"
+	"SDL/SDL_ttf.h"
+	"SDL/SDL_mixer.h"
+	<string>
+
+1517242874 source:c:\dysk d work\code\test03\game01\hero.cpp
+	"Hero.hpp"
+
+1517251198 source:c:\dysk d work\code\test03\game01\highscores.cpp
+	"highscores.hpp"
+	<string>
+
+1517250934 c:\dysk d work\code\test03\game01\highscores.hpp
+	"Texture.hpp"
+	"HUDMessege.hpp"
+	"Button.hpp"
+	"filehs.hpp"
+	"SDL/SDL_mixer.h"
+	<sstream>
+
+1517182886 source:c:\dysk d work\code\test03\game01\hudmessege.cpp
+	"HUDMessege.hpp"
+
+1517253886 source:c:\dysk d work\code\test03\game01\mainmenu.cpp
+	"mainmenu.hpp"
+
+1517253886 c:\dysk d work\code\test03\game01\mainmenu.hpp
+	"Button.hpp"
+	"Texture.hpp"
+	"SDL/SDL_mixer.h"
+
+1517241120 source:c:\dysk d work\code\test03\game01\pause.cpp
+	"Pause.hpp"
+
+1517235414 c:\dysk d work\code\test03\game01\pause.hpp
+	"SDL/SDL_mixer.h"
+	"Texture.hpp"
+	"Button.hpp"
+
+1513364580 source:c:\dysk d work\code\test03\game01\texture.cpp
+	"Texture.hpp"
+
+1511196370 source:c:\dysk d work\code\test03\game01\timer.cpp
+	"Timer.hpp"
+	"SDL/SDL.h"
+
+1518371374 source:c:\dysk d work\code\test03\game01\main.cpp
+	"SDL/SDL.h"
+	"SDL/SDL_image.h"
+	"SDL/SDL_ttf.h"
+	"SDL/SDL_mixer.h"
+	"Timer.hpp"
+	"Pause.hpp"
+	"game.hpp"
+	"Sizes.h"
+	"mainmenu.hpp"
+	"highscores.hpp"
+	"filehs.hpp"
+	"Hero.hpp"
+	"gameover.hpp"
+	<string>
+	<fstream>
+	<sstream>
+	"filehs.hpp"
+

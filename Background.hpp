@@ -2,6 +2,7 @@
 #define BACKGROUND_HPP_INCLUDED
 
 #include "Texture.hpp"
+#include "Sizes.h"
 
 class Background : public Texture
 {

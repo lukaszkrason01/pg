@@ -120,13 +120,13 @@ bool init()
 
 bool load_files()
 {
-    herosprite=load_image("jpg//hero3.png");
+    herosprite=load_image("jpg//hero4.png");
     if(herosprite == NULL) return false;
 
-    bg=load_image("jpg//background.png");
+    bg=load_image("jpg//background2.png");
     if(bg == NULL) return false;
 
-    floortexture=load_image("jpg//floor.png");
+    floortexture=load_image("jpg//floor2.png");
     if(floortexture==NULL) return false;
 
     game_over_surface=load_image("jpg//game-over.png");
@@ -147,7 +147,7 @@ bool load_files()
     main_menu_button_pause_menu=load_image("jpg//mainmenu.png");
     if(main_menu_button_pause_menu == NULL) return false;
 
-    main_menu=load_image("jpg//main.png");
+    main_menu=load_image("jpg//main2.png");
     if(main_menu == NULL) return false;
 
     highscore_main_menu=load_image("jpg//highscore.png");
@@ -156,7 +156,7 @@ bool load_files()
     new_game_main_menu=load_image("jpg//newgame.png");
     if(new_game_main_menu == NULL) return false;
 
-    highscore_menu=load_image("jpg//highscoremenu.png");
+    highscore_menu=load_image("jpg//highscoremenu2.png");
     if(highscore_menu == NULL) return false;
 
     back=load_image("jpg//back.png");
@@ -478,7 +478,7 @@ int main( int argc, char* args[] )
     pause->setMainmenu (main_menu_button_pause_menu);
     pause->setQuit(quit_button_pause_menu);
 
-    state = MAIN_MENU;
+    state = GAME;
 
     game_time = new Timer();
 
@@ -499,12 +499,12 @@ int main( int argc, char* args[] )
         }
 
         ////////testing
-//
-//        std::stringstream caption;
-//        caption
-//        << "score act =" << game ->getScore()
-//        ;
-//        SDL_WM_SetCaption( caption.str().c_str(), NULL );
+
+        std::stringstream caption;
+        caption
+        << "score act =" << game ->background->surface ->h;
+        ;
+        SDL_WM_SetCaption( caption.str().c_str(), NULL );
     }
 
     delete game;
