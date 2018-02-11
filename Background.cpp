@@ -12,14 +12,14 @@ Background::~Background()
 void Background::show()
 {
     apply_surface(0,y,surface,screen);
-    apply_surface(0,y+surface->w,surface,screen);
+    apply_surface(0,y+surface->h,surface,screen);
 }
 
 
 void Background::move(int offset)
 {
     y-=offset;
-    if( y <= -surface->w )
+    if( y <= -surface->h )
     {
         y = 0;
     }
